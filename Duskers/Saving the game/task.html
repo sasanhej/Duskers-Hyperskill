@@ -1,0 +1,204 @@
+<div class="step-text">
+<h5 id="theory">Theory</h5>
+<p>Before you can start implementing the stage, it might be a good idea to go over some theory.</p>
+<p>In order to check if a file exists in a given directory, we can use the <code class="language-python">os.path</code> module. The syntax is as follows:</p>
+<pre><code class="language-python">os.path.isfile(path)</code></pre>
+<p>It returns a boolean value. We can use a relative path here to refer to a file in the same directory as our main script.</p>
+<p>For example, <code class="language-python">os.path.isfile("save_file.txt")</code> looks for a file named <em>save_file.txt</em> in the same folder as your script. If such a file, exists it returns <code class="language-python">True</code>. Make sure you implement it this way for the tests.</p>
+<h5 id="description">Description</h5>
+<p>In this stage, we will take care of something very important in games: saving the game to a file and loading it. The program will also record the date and time of the save. How you format the save file is completely up to you, you may do something as simple as storing it in a plain text file, or use a popular format such a JSON. The only requirement is that the string <code class="language-python">save_file</code> is in the file name of the file(s) you use to store the game state. The tests are only concerned about if the saved data made its way back into the program after loading a game, i.e. the file structure is not actually checked.</p>
+<h5 id="objectives">Objectives</h5>
+<ol>
+<li>
+<p>We will use 3 save slots. These contents of these slots should be displayed when selecting the <code class="language-python">Load</code> option. If there is no data in a save slot, it should display <code class="language-python">empty</code>. The save slots are numbered (from 1 to 3), and the player enters the number of the slot they want to load or save to. Make sure that the player is not able to load an empty slot! Each slot, if populated, should display the player's name, their current <code class="language-python">Titanium</code> balance, and <code class="language-python">Robot</code> count. It should also contain the current time and date of saving in the following format: <code class="language-python">YYYY-MM-DD hh:mm</code>. For example: <code class="language-python">2020-09-24 20:05</code>.</p>
+<p>To summarize, this is the structure of the slot as seen in-game:<br/>
+<code class="language-python">&lt;player-name&gt; Titanium: &lt;balance&gt; Robots: &lt;number-of-robots&gt; Last save: &lt;date-and-time&gt;</code></p>
+	Where text in &lt;angled-brackets&gt; is a placeholder.
+
+	<p>Example:</p>
+<pre><code class="language-no-highlight">Hyperskill Titanium: 50 Robots: 3 Last save: 2022-01-15 19:29</code></pre>
+	Remember: how you structure the actual save files is up to you. Only the displayed data inside the load menu and the actual loaded game state will be tested.
+
+	<p> </p>
+</li>
+<li>Make sure the game state is actually loaded in the game</li>
+<li>Display a small dialog box if saving/loading was successful.</li>
+<li>Make sure you also add the saving functionality to the <code class="language-python">save and exit</code> option. Similarly here, three slots should be available to choose from, and the player should select the slot to save to by entering its number.</li>
+<li>You should now replace <code class="language-python">Play</code> with <code class="language-python">New game</code> and <code class="language-python">Load game</code> options in the menu.</li>
+</ol>
+<h5 id="examples">Examples</h5>
+<p>The greater-than symbol followed by a space (<code class="language-python">&gt; </code>) represents the user input. Note that it's not part of the input.</p>
+<p><strong>Example 1:</strong></p>
+<pre><code class="language-no-highlight">+=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[New]  Game
+[Load] Game
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; new
+
+Enter your name:
+&gt; hyper
+
+Greetings, commander hyper!
+Are you ready to begin?
+[Yes] [No] Return to Main[Menu]
+
+Your command:
+&gt; yes
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 0                                                                  |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command:
+&gt; save
+   Select save slot:
+    [1] empty
+    [2] empty
+    [3] empty
+
+Your command:
+&gt; 1
+                        |==============================|
+                        |    GAME SAVED SUCCESSFULLY   |
+                        |==============================|
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 0                                                                  |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command:
+&gt; m
+                          |==========================|
+                          |            MENU          |
+                          |                          |
+                          | [Back] to game           |
+                          | Return to [Main] Menu    |
+                          | [Save] and exit          |
+                          | [Exit] game              |
+                          |==========================|
+
+Your command:
+&gt; main
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[New]  Game
+[Load] Game
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; load
+   Select save slot:
+    [1] hyper Titanium: 0 Robots: 3 Last save: 2020-09-24 20:05
+    [2] empty
+    [3] empty
+
+Your command:
+&gt; 1
+                        |==============================|
+                        |    GAME LOADED SUCCESSFULLY  |
+                        |==============================|
+ Welcome back, commander hyper!
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 0                                                                  |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: </code></pre>
+<p><strong>Example 2:</strong></p>
+<pre><code class="language-no-highlight">+=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[New]  Game
+[Load] Game
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; load
+   Select save slot:
+    [1] empty
+    [2] empty
+    [3] empty
+
+Your command:
+&gt; 1
+Empty slot!
+
+   Select save slot:
+    [1] empty
+    [2] empty
+    [3] empty
+
+Your command:
+&gt; back
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[New]  Game
+[Load] Game
+[High] Scores
+[Help]
+[Exit]
+
+Your command: </code></pre>
+</div>

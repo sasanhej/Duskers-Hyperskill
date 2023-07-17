@@ -1,0 +1,179 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>Let's see what our game is actually about. You have robots under your command (3 to start with), and your mission is to explore various locations where you will find titanium that is used as a currency and encounter occasional enemies.</p>
+<p>In this stage, we will add more elements to our game: some other menu items and a simple graphic hub. The Hub is basically a game screen where the player will see the most important information.</p>
+<h5 id="objectives">Objectives</h5>
+<ol>
+<li>Add two new options to our menu: <code class="java">high scores</code> and <code class="java">help</code>. For now, they won't be very functional: we will work on them later. The new display order should be as follows: <code class="java">Play</code>, <code class="java">High scores</code>, <code class="java">Help</code>, <code class="java">Exit</code>.</li>
+<li>If the user chooses <code class="java">[High] scores</code>, show them a message that there are no scores to display.</li>
+<li><code class="java">Back</code> should bring the user to the previous screen. Display this option on the high scores screen.</li>
+<li>Whenever a feature isn't available yet, display some placeholder text to inform the user that the feature is coming soon, and end the program.</li>
+<li>Add a possibility to return to the main <code class="java">[Menu]</code> when the player is asked if they are ready to begin the game.</li>
+<li>After starting the game, display a HUB like the one in the first example below. For now, it is just a placeholder.</li>
+</ol>
+<h5 id="examples">Examples</h5>
+<p>The greater-than symbol followed by a space (<code class="java">&gt; </code>) represents the user input. Note that it's not part of the input.</p>
+<p><strong>Example 1:</strong> <em>Play</em></p>
+<pre><code class="language-no-highlight">+=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; play
+
+Enter your name:
+&gt; Hyper
+
+Greetings, commander Hyper!
+Are you ready to begin?
+[Yes] [No] Return to Main[Menu]
+
+Your command:
+&gt; yes
+__________(LOG)__________________________________________________(LOG)__________
++==============================================================================+
+
+
+                                 (ROBOT IMAGES)
+
+
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+</code></pre>
+<p><strong>Example 2:</strong> <em>High and exit</em></p>
+<pre><code class="language-no-highlight">+=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; high
+
+No scores to display.
+	[Back]
+
+Your command:
+&gt; back
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; exit
+Thanks for playing, bye!</code></pre>
+<p><strong>Example 3</strong>: <em>help</em></p>
+<pre><code class="language-no-highlight">+=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; help
+
+Coming SOON! Thanks for playing!</code></pre>
+<p><strong>Example 4:</strong> <em>Menu after [play] command</em></p>
+<pre><code class="language-no-highlight">+=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; play
+
+Enter your name:
+&gt; Hyper
+
+Greetings, commander Hyper!
+Are you ready to begin?
+[Yes] [No] Return to Main[Menu]
+
+Your command:
+&gt; menu
+
++=============================================================================+
+######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                    (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+</code></pre>
+<p><strong>Example 5:</strong> <em>handling invalid input</em></p>
+<pre><code class="language-no-highlight">+=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; chat
+Invalid input
+
+Your command: </code></pre>
+</div>

@@ -1,0 +1,138 @@
+type: edu
+custom_name: "Greetings, Commander!"
+files:
+- name: duskers/duskers.py
+  visible: true
+  text: |
+    # Write your code here
+  learner_created: false
+- name: test/__init__.py
+  visible: false
+  learner_created: false
+- name: test/tests.py
+  visible: false
+  text: |
+    import re
+
+    from hstest import CheckResult, StageTest, TestedProgram, dynamic_test
+
+    from utils.global_tests import CASE_INSENSITIVITY_REMINDER, GlobalDuskersTest
+
+    MODULE_NAME = 'duskers.duskers'
+    STAGE_NO = 1
+
+
+    class DuskersTest(StageTest):
+
+        @dynamic_test
+        def test_menu_print(self):
+            pr = TestedProgram()
+            menu = pr.start()
+            menu_lines = re.split("\n+", menu)
+
+            if len(menu_lines) < 10:
+                return CheckResult.wrong(
+                    "Output too short.\n"
+                    "Your title should take up exactly 8 non-empty lines,\n"
+                    "then the main menu options should be displayed on separate lines."
+                )
+
+            play_button = menu_lines[8].lower()
+            if "[play]" not in play_button:
+                return CheckResult.wrong(
+                    "Play option should be right underneath the title, "
+                    "which should take up exactly 8 non-empty lines."
+                )
+
+            exit_button = menu_lines[9].lower()
+            if "[exit]" not in exit_button:
+                return CheckResult.wrong("Exit option should be under [Play].\n")
+
+            return CheckResult.correct()
+
+        @dynamic_test(data=[
+            ["hyperskill", "yes"],
+            ["hyper", "YES"],
+            ["automated test", "yES"]])
+        def test_play_option(self, player_name, yes):
+            pr = TestedProgram()
+            pr.start()
+            pr.execute("play")
+            ready_prompt = pr.execute(player_name).lower()
+
+            if player_name not in ready_prompt:
+                return CheckResult.wrong("Player not greeted personally.")
+
+            if "[yes]" not in ready_prompt or "[no]" not in ready_prompt:
+                return CheckResult.wrong(
+                    "Player not asked if he/she is ready to begin.\n"
+                    "Remember to display possible commands for player to choose from."
+                )
+
+            short_message = pr.execute(yes)
+
+            if not short_message:
+                return CheckResult.wrong(
+                    "No short message found after selecting [Yes] from the ready menu.\n"
+                    "Tell the player to get back to some more coding!"
+                )
+
+            if not pr.is_finished:
+                return CheckResult.wrong(
+                    "Program should finish after player says that they're ready.\n"
+                    + CASE_INSENSITIVITY_REMINDER)
+
+            return CheckResult.correct()
+
+        @dynamic_test
+        def test_keep_asking_for_readiness(self):
+            pr = TestedProgram()
+            pr.start()
+            pr.execute("play")
+            ready_prompt = re.split("\n+", pr.execute("hyperskill"))[-1]
+
+            for _ in range(3):
+                re_ready_prompt = pr.execute("no")
+
+                if ready_prompt not in re_ready_prompt:
+                    return CheckResult.wrong(
+                        "You must keep asking the player if they are ready until "
+                        "they choose [Yes] if they chose [No] when asked if ready.\n"
+                        + CASE_INSENSITIVITY_REMINDER
+                    )
+
+            pr.execute("yes")
+            if not pr.is_finished():
+                return CheckResult.wrong(
+                    "Your program should finish when the player finally decides"
+                    "that they're ready."
+                )
+
+            return CheckResult.correct()
+
+
+    if __name__ == '__main__':
+        # run tests that are shared among more than 1 stage
+        return_code = GlobalDuskersTest(STAGE_NO, MODULE_NAME).run_tests()[0]
+        # run tests specific to this stage if global tests pass
+        if return_code == 0:
+            DuskersTest(MODULE_NAME).run_tests()
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: |-
+    from test.tests import DuskersTest, GlobalDuskersTest, STAGE_NO, MODULE_NAME
+
+    if __name__ == '__main__':
+        # run tests that are shared among more than 1 stage
+        return_code = GlobalDuskersTest(STAGE_NO, MODULE_NAME).run_tests()[0]
+        # run tests specific to this stage if global tests pass
+        if return_code == 0:
+            DuskersTest(MODULE_NAME).run_tests()
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/11301#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Mon, 17 Jul 2023 00:21:25 UTC"
+record: 1

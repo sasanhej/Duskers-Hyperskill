@@ -1,0 +1,805 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>This is the final stage of the project where we will add some finishing touches to the game. The game is not very challenging at the moment: let's add enemy encounters! How do you know if you're going to encounter an enemy at a given location? Well... you don't. You can buy an upgrade to see the <strong>probability </strong>of encountering one. Every enemy encounter means one of your robots had to stay back and fight the enemy, so the player loses it, but the remaining robots are still able to get away with the loot. The game ends when you lose all of your robots. You can also buy an upgrade to see how much titanium you will earn from each found location. Of course, you can also buy more robots if you can afford them.</p>
+<p>We will also polish our game by adding high scores stored in a file and a help screen with information about the game and the controls.</p>
+<p><strong>Optional after project completion</strong></p>
+<p>After you complete this project, you are free to keep experimenting with changing/adding different game mechanics to make the game more interesting and enjoyable. You might want to experiment with the encounter rate to make the game more balanced, or you could go even further and implement a battle system, giving your robots and the enemy HP, attack and defense stats, interactive battles, etc. As they say, the sky is the limit!</p>
+<h5 id="objectives">Objectives</h5>
+<ol>
+<li>Now each location should also have an encounter rate between 0% and 100%. The higher the probability, the more likely that an enemy encounter is going to happen. After the project, you can experiment with how this value is set to make the game better. For now, we will give you a simple option to implement.
+	<ol>
+<li>During the searching, right <em>after</em> generating the place name and titanium amount, randomly generate the encounter rate (a number between 0 and 1) using <code class="java">random.random()</code>.</li>
+<li>If the encounter rate is visible, display that number (encounter rate) as a percentage rounded to the nearest whole number, for example, 0.6843... --&gt; 68%. For the calculations, however, keep the original unrounded number.</li>
+<li>If the player chooses to explore a certain location, generate a second random number between 0 and 1 (using <code class="java">random.random()</code>).</li>
+<li>If the second number is smaller than the first number, then the Encounter happens; if the second number is larger or equal to the first, then there is no encounter.</li>
+</ol>
+</li>
+<li>After each enemy encounter, one robot is lost. Make sure those changes are reflected in the HUB after each encounter.</li>
+<li>The upgrade shop should include the following upgrades:
+	<ol>
+<li>Titanium Scan for 250 titanium — shows titanium amount the player will obtain upon exploring a location. Displays next to location name for all searches.</li>
+<li>Enemy Encounter Scan for 500 titanium — shows enemy encounter rate (rounded to the nearest percent) next to the location name in all searches.</li>
+<li>New Robot for 1000 titanium — essentially gives the player an extra life. Adds an extra robot (exactly the same as the previous ones) to the hub.</li>
+</ol>
+	The purchase is only possible if a player has enough titanium to buy the upgrades. Make sure these upgrades don't disappear after saving and loading the game. The player selects the upgrade they want to buy by entering the number corresponding to that upgrade, which should be the same as the upgrade's position in the list above.</li>
+<li>If all the robots are lost, the game is over, and a "Game Over" message should be displayed on the screen. Remember that when all robots are lost, titanium is <strong>not</strong> obtained from that final (failed) exploration.</li>
+<li>The score (titanium balance) along with the player's name is then saved to a file containing <code class="java">high_scores</code> in its filename if it is among the 10 highest scores so far. How you represent the data in the file is again completely up to you, just make sure the data persists when the game is reloaded.</li>
+<li>The top 10 scores and the players' names should be displayed on the high scores screen which can be accessed from the main menu. If there are less than 10 scores, only display the existing ones, e.g. if the game was played (and game over was reached) 6 times only show 6 scores with names. You should structure the high scores screen as follows:
+	<pre><code class="language-no-highlight">      HIGH SCORES
+
+      (1) name1 8073
+      (2) name2 8023
+      (3) name1 567
+      (4) name3 127</code></pre>
+	If two players obtain the same score, the player who obtained that score first is placed higher on the leaderboard. If a player with the same name played the game multiple times, keep record of all of their scores that made it onto the top 10 high scores.</li>
+<li>As a finishing touch, add some help text (accessed from the main menu) to tell the player what the game is about and how to control the game.</li>
+</ol>
+<p>Note: for this stage, please have animation turned off by default.</p>
+<h5 id="examples">Examples</h5>
+<p>The greater-than symbol followed by a space (<code class="java">&gt; </code>) represents the user input. Note that it's not part of the input.</p>
+<p><strong>Example 1:</strong> <em>Upgrades and their effects, enemy encounter</em></p>
+<pre><code class="language-no-highlight">+==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 3023                                                               |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; up
+                       |================================|
+                       |          UPGRADE STORE         |
+                       |                         Price  |
+                       | [1] Titanium Scan         250  |
+                       | [2] Enemy Encounter Scan  500  |
+                       | [3] New Robot            1000  |
+                       |                                |
+                       | [Back]                         |
+                       |================================|
+
+
+Your command: &gt; 1
+Purchase successful. You can now see how much titanium you can get from each found location.
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 2773                                                               |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] Destroyed Arch Titanium: 38
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 38
+[2] High street Titanium: 55
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 38
+[2] High street Titanium: 55
+[3] High street Titanium: 67
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 38
+[2] High street Titanium: 55
+[3] High street Titanium: 67
+[4] Green park Titanium: 95
+
+[S] to continue searching
+
+Your command: &gt; 4
+Deploying robots
+Enemy encounter
+Green park explored successfully, 1 robot lost..
+Acquired 95 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $
++==============================================================================+
+| Titanium: 2868                                                               |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; up
+                       |================================|
+                       |          UPGRADE STORE         |
+                       |                         Price  |
+                       | [1] Titanium Scan         250  |
+                       | [2] Enemy Encounter Scan  500  |
+                       | [3] New Robot            1000  |
+                       |                                |
+                       | [Back]                         |
+                       |================================|
+
+
+Your command: &gt; 2
+Purchase successful. You will now see how likely you will encounter an enemy at each found location.
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $
++==============================================================================+
+| Titanium: 2368                                                               |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] Green park Titanium: 33 Encounter rate: 83%
+
+[S] to continue searching
+
+Your command: &gt; s
+Nothing more in sight.
+       [Back]
+
+Your command: &gt; back
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $
++==============================================================================+
+| Titanium: 2368                                                               |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] Destroyed Arch Titanium: 52 Encounter rate: 47%
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 52 Encounter rate: 47%
+[2] Green park Titanium: 34 Encounter rate: 100%
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 52 Encounter rate: 47%
+[2] Green park Titanium: 34 Encounter rate: 100%
+[3] Destroyed Arch Titanium: 50 Encounter rate: 46%
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 52 Encounter rate: 47%
+[2] Green park Titanium: 34 Encounter rate: 100%
+[3] Destroyed Arch Titanium: 50 Encounter rate: 46%
+[4] Destroyed Arch Titanium: 47 Encounter rate: 20%
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 52 Encounter rate: 47%
+[2] Green park Titanium: 34 Encounter rate: 100%
+[3] Destroyed Arch Titanium: 50 Encounter rate: 46%
+[4] Destroyed Arch Titanium: 47 Encounter rate: 20%
+[5] High street Titanium: 96 Encounter rate: 97%
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 52 Encounter rate: 47%
+[2] Green park Titanium: 34 Encounter rate: 100%
+[3] Destroyed Arch Titanium: 50 Encounter rate: 46%
+[4] Destroyed Arch Titanium: 47 Encounter rate: 20%
+[5] High street Titanium: 96 Encounter rate: 97%
+[6] Destroyed Arch Titanium: 69 Encounter rate: 39%
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 52 Encounter rate: 47%
+[2] Green park Titanium: 34 Encounter rate: 100%
+[3] Destroyed Arch Titanium: 50 Encounter rate: 46%
+[4] Destroyed Arch Titanium: 47 Encounter rate: 20%
+[5] High street Titanium: 96 Encounter rate: 97%
+[6] Destroyed Arch Titanium: 69 Encounter rate: 39%
+[7] High street Titanium: 32 Encounter rate: 2%
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 52 Encounter rate: 47%
+[2] Green park Titanium: 34 Encounter rate: 100%
+[3] Destroyed Arch Titanium: 50 Encounter rate: 46%
+[4] Destroyed Arch Titanium: 47 Encounter rate: 20%
+[5] High street Titanium: 96 Encounter rate: 97%
+[6] Destroyed Arch Titanium: 69 Encounter rate: 39%
+[7] High street Titanium: 32 Encounter rate: 2%
+[8] High street Titanium: 36 Encounter rate: 100%
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch Titanium: 52 Encounter rate: 47%
+[2] Green park Titanium: 34 Encounter rate: 100%
+[3] Destroyed Arch Titanium: 50 Encounter rate: 46%
+[4] Destroyed Arch Titanium: 47 Encounter rate: 20%
+[5] High street Titanium: 96 Encounter rate: 97%
+[6] Destroyed Arch Titanium: 69 Encounter rate: 39%
+[7] High street Titanium: 32 Encounter rate: 2%
+[8] High street Titanium: 36 Encounter rate: 100%
+[9] Destroyed Arch Titanium: 12 Encounter rate: 6%
+
+[S] to continue searching
+
+Your command: &gt; 7
+Deploying robots
+High street explored successfully, with no damage taken.
+Acquired 32 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $
++==============================================================================+
+| Titanium: 2400                                                               |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; </code></pre>
+<p><strong>Example 2:</strong> <em>An additional robot</em></p>
+<pre><code class="language-no-highlight">+==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $
++==============================================================================+
+| Titanium: 2400                                                               |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; up
+                       |================================|
+                       |          UPGRADE STORE         |
+                       |                         Price  |
+                       | [1] Titanium Scan         250  |
+                       | [2] Enemy Encounter Scan  500  |
+                       | [3] New Robot            1000  |
+                       |                                |
+                       | [Back]                         |
+                       |================================|
+
+
+Your command: &gt; 3
+Purchase successful. You now have an additional robot
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 1400                                                               |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; up
+                       |================================|
+                       |          UPGRADE STORE         |
+                       |                         Price  |
+                       | [1] Titanium Scan         250  |
+                       | [2] Enemy Encounter Scan  500  |
+                       | [3] New Robot            1000  |
+                       |                                |
+                       | [Back]                         |
+                       |================================|
+
+
+Your command: &gt; 3
+Purchase successful. You now have an additional robot
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 400                                                                |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; up
+                       |================================|
+                       |          UPGRADE STORE         |
+                       |                         Price  |
+                       | [1] Titanium Scan         250  |
+                       | [2] Enemy Encounter Scan  500  |
+                       | [3] New Robot            1000  |
+                       |                                |
+                       | [Back]                         |
+                       |================================|
+
+
+Your command: &gt; 3
+Not enough titanium!
+
+Your command: &gt; back
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 400                                                                |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+</code></pre>
+<p><strong>Example 3:</strong> <em>High scores and game over</em></p>
+<pre><code class="language-no-highlight">+=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[New]  Game
+[Load] Game
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; high
+
+	HIGH SCORES
+
+(1) da_test 8073
+(2) da_test 8023
+(3) da_test 8004
+(4) da_test 8000
+(5) da_test 8000
+(6) da_test 8000
+(7) da_test 8000
+(8) da_test 8000
+(9) da_test 8000
+(10) da_test 8000
+
+	[Back]
+
+Your command:
+&gt; back
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[New]  Game
+[Load] Game
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; load
+   Select save slot:
+    [1] david Titanium: 10000 Robots: 1 Last save: 2020-09-25 10:11 Upgrades: enemy_info
+    [2] empty
+    [3] empty
+
+Your command:
+&gt; 1
+                        |==============================|
+                        |   GAME LOADED SUCCESSFULLY   |
+                        |==============================|
+ Welcome back, commander david!
++==============================================================================+
+  $   $$$$$$$   $
+  $$$$$     $$$$$
+      $$$$$$$
+     $$$   $$$
+     $       $
++==============================================================================+
+| Titanium: 10000                                                              |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command:
+&gt; ex
+Searching.
+[1] Old beach bar Encounter rate: 45%
+
+[S] to continue searching
+
+Your command:
+&gt; s
+Searching.
+[1] Old beach bar Encounter rate: 45%
+[2] Nuclear power plant wreckage Encounter rate: 3%
+
+[S] to continue searching
+
+Your command:
+&gt; s
+Searching...
+[1] Old beach bar Encounter rate: 45%
+[2] Nuclear power plant wreckage Encounter rate: 3%
+[3] Nuclear power plant wreckage Encounter rate: 74%
+
+[S] to continue searching
+
+Your command:
+&gt; 3
+Deploying robots...
+Enemy encounter!!!
+Mission aborted, the last robot lost...
+                        |==============================|
+                        |          GAME OVER!          |
+                        |==============================|
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[New]  Game
+[Load] Game
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; high
+
+	HIGH SCORES
+
+(1) hyper 10000
+(2) da_test 8073
+(3) da_test 8023
+(4) da_test 8004
+(5) da_test 8000
+(6) da_test 8000
+(7) da_test 8000
+(8) da_test 8000
+(9) da_test 8000
+(10) da_test 8000
+
+	[Back]
+
+Your command: </code></pre>
+<p><strong>Example 4:</strong> <em>Specifying the seed and place names</em></p>
+<pre><code class="language-no-highlight">python3 -u duskers.py 0 0 0 first,second,third
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[New]  Game
+[Load] Game
+[High] Scores
+[Help]
+[Exit]
+
+Your command: &gt; new
+
+Enter your name: &gt; Hyperskill
+
+Welcome, commander Hyperskill!
+Are you ready to begin?
+[Yes] [No] Return to Main[Menu]
+
+Your command: &gt; yes
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 0                                                                  |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] first
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] first
+[2] first
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] first
+[2] first
+[3] first
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] first
+[2] first
+[3] first
+[4] first
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] first
+[2] first
+[3] first
+[4] first
+[5] first
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] first
+[2] first
+[3] first
+[4] first
+[5] first
+[6] second
+
+[S] to continue searching
+
+Your command: &gt; s
+Nothing more in sight.
+       [Back]
+
+Your command: &gt; 1
+Deploying robots
+Enemy encounter
+first explored successfully, 1 robot lost..
+Acquired 42 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $
++==============================================================================+
+| Titanium: 42                                                                 |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] second
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] second
+[2] third
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] second
+[2] third
+[3] first
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] second
+[2] third
+[3] first
+[4] first
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] second
+[2] third
+[3] first
+[4] first
+[5] first
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] second
+[2] third
+[3] first
+[4] first
+[5] first
+[6] third
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] second
+[2] third
+[3] first
+[4] first
+[5] first
+[6] third
+[7] third
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] second
+[2] third
+[3] first
+[4] first
+[5] first
+[6] third
+[7] third
+[8] third
+
+[S] to continue searching
+
+Your command: &gt; s
+Nothing more in sight.
+       [Back]
+
+Your command: &gt; 1
+Deploying robots
+Enemy encounter
+second explored successfully, 1 robot lost..
+Acquired 43 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $
+  $$$$$     $$$$$
+      $$$$$$$
+     $$$   $$$
+     $       $
++==============================================================================+
+| Titanium: 85                                                                 |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] third
+
+[S] to continue searching
+
+Your command: &gt; s
+Nothing more in sight.
+       [Back]
+
+Your command: 1
+Deploying robots
+third explored successfully, with no damage taken.
+Acquired 65 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $
+  $$$$$     $$$$$
+      $$$$$$$
+     $$$   $$$
+     $       $
++==============================================================================+
+| Titanium: 150                                                                |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] third
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] third
+[2] second
+
+[S] to continue searching
+
+Your command: &gt; s
+Nothing more in sight.
+       [Back]
+
+Your command: &gt; 1
+Deploying robots
+third explored successfully, with no damage taken.
+Acquired 96 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $
+  $$$$$     $$$$$
+      $$$$$$$
+     $$$   $$$
+     $       $
++==============================================================================+
+| Titanium: 246                                                                |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command:
+</code></pre>
+</div>

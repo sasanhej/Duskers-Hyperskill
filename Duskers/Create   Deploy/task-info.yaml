@@ -1,0 +1,74 @@
+type: edu
+custom_name: Create & Deploy
+files:
+- name: duskers/duskers.py
+  visible: true
+  text: |
+    # Write your code here
+  learner_created: false
+- name: test/__init__.py
+  visible: false
+  learner_created: false
+- name: test/tests.py
+  visible: false
+  text: |+
+    from hstest import CheckResult, StageTest, TestedProgram, dynamic_test
+    from utils.global_tests import GlobalDuskersTest
+
+    MODULE_NAME = 'duskers.duskers'
+    STAGE_NO = 3
+
+
+    class DuskersTest(StageTest):
+
+        @dynamic_test(data=["ex", "save", "up"])
+        def test_placeholders_hub(self, option):
+            pr = TestedProgram()
+            pr.start()
+            pr.execute("play")
+            pr.execute("hyperskill")
+            pr.execute("yes")
+
+            short_message = pr.execute(option).strip()
+            if not short_message or short_message == "":
+                return CheckResult.wrong(
+                    "No placeholder text displayed to the user upon selecting a "
+                    f"menu option that has not yet been implemented: [{option}]."
+                )
+
+            if not pr.is_finished():
+                return CheckResult.wrong(
+                    "Your program should terminate upon selecting a non-implemented "
+                    f"option: [{option}]."
+                )
+
+            return CheckResult.correct()
+
+
+    if __name__ == '__main__':
+        # run tests that are shared among more than 1 stage
+        return_code = GlobalDuskersTest(STAGE_NO, MODULE_NAME).run_tests()[0]
+        # run tests specific to this stage if global tests pass
+        if return_code == 0:
+            DuskersTest(MODULE_NAME).run_tests()
+
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: |+
+    from test.tests import DuskersTest, GlobalDuskersTest, STAGE_NO, MODULE_NAME
+
+    if __name__ == '__main__':
+        # run tests that are shared among more than 1 stage
+        return_code = GlobalDuskersTest(STAGE_NO, MODULE_NAME).run_tests()[0]
+        # run tests specific to this stage if global tests pass
+        if return_code == 0:
+            DuskersTest(MODULE_NAME).run_tests()
+
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/11303#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Mon, 17 Jul 2023 07:41:54 UTC"
+record: 3

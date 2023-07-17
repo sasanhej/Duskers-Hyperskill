@@ -1,0 +1,84 @@
+type: edu
+files:
+- name: duskers/duskers.py
+  visible: true
+  text: |
+    # Write your code here
+  learner_created: false
+- name: test/__init__.py
+  visible: false
+  learner_created: false
+- name: test/tests.py
+  visible: false
+  text: |
+    from hstest import CheckResult, StageTest, TestedProgram, dynamic_test
+    from utils.global_tests import CASE_INSENSITIVITY_REMINDER, GlobalDuskersTest
+    import re
+
+    MODULE_NAME = 'duskers.duskers'
+    STAGE_NO = 2
+
+
+    class DuskersTest(StageTest):
+
+        @dynamic_test
+        def test_keep_asking_for_readiness(self):
+            pr = TestedProgram()
+            pr.start()
+            pr.execute("play")
+            ready_prompt = re.split("\n+", pr.execute("hyperskill"))[-1]
+
+            for _ in range(3):
+                re_ready_prompt = pr.execute("no")
+
+                if ready_prompt not in re_ready_prompt:
+                    return CheckResult.wrong(
+                        "You must keep asking the player if they are ready until "
+                        "they choose [Yes] if they chose [No] when asked if ready.\n"
+                        + CASE_INSENSITIVITY_REMINDER
+                    )
+
+            hub = pr.execute("yes").strip()
+
+            if not hub or len(hub) == 0:
+                return CheckResult.wrong(
+                    "No hub found after finally selecting yes from the "
+                    "ready menu. For now this hub can be anything.\n"
+                    "Take a look where you continuously ask the player if they're "
+                    "ready.\n" + CASE_INSENSITIVITY_REMINDER
+                )
+
+            if not pr.is_finished():
+                return CheckResult.wrong(
+                    "Your program should finish when the player finally decides "
+                    "that they're ready."
+                )
+
+            return CheckResult.correct()
+
+
+    if __name__ == '__main__':
+        # run tests that are shared among more than 1 stage
+        return_code = GlobalDuskersTest(STAGE_NO, MODULE_NAME).run_tests()[0]
+        # run tests specific to this stage if global tests pass
+        if return_code == 0:
+            DuskersTest(MODULE_NAME).run_tests()
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: |
+    from test.tests import DuskersTest, GlobalDuskersTest, STAGE_NO, MODULE_NAME
+
+    if __name__ == '__main__':
+        # run tests that are shared among more than 1 stage
+        return_code = GlobalDuskersTest(STAGE_NO, MODULE_NAME).run_tests()[0]
+        # run tests specific to this stage if global tests pass
+        if return_code == 0:
+            DuskersTest(MODULE_NAME).run_tests()
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/11302#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Mon, 17 Jul 2023 06:54:31 UTC"
+record: 2

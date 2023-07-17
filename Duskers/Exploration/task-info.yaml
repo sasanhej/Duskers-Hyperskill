@@ -1,0 +1,65 @@
+type: edu
+files:
+- name: duskers/duskers.py
+  visible: true
+  text: |
+    # Write your code here
+  learner_created: false
+- name: test/__init__.py
+  visible: false
+  learner_created: false
+- name: test/tests.py
+  visible: false
+  text: |
+    from hstest import StageTest
+    from utils.global_tests import GlobalDuskersTest
+    from utils.from_stage4_tests import FromStage4DuskersTest
+
+    MODULE_NAME = 'duskers.duskers'
+    STAGE_NO = 4
+
+
+    class DuskersTest(StageTest):
+        # no tests specific to just this stage
+        pass
+
+
+    if __name__ == '__main__':
+        # run tests that are shared among more than 1 stage
+        return_code = GlobalDuskersTest(STAGE_NO, MODULE_NAME).run_tests()[0]
+        # run tests specific to this stage if global tests pass
+
+        suites = [
+            FromStage4DuskersTest(STAGE_NO, MODULE_NAME),
+            # DuskersTest(MODULE_NAME) # uncomment when adding stage4 specific tests
+        ]
+        current_suite = 0
+
+        while return_code == 0 and current_suite < len(suites):
+            return_code = suites[current_suite].run_tests()[0]
+            current_suite += 1
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: |
+    from test.tests import GlobalDuskersTest, STAGE_NO, MODULE_NAME
+    from utils.from_stage4_tests import FromStage4DuskersTest
+
+    if __name__ == '__main__':
+        # run tests that are shared among more than 1 stage
+        return_code = GlobalDuskersTest(STAGE_NO, MODULE_NAME).run_tests()[0]
+        # run tests specific to this stage if global tests pass
+
+        suites = [
+            FromStage4DuskersTest(STAGE_NO, MODULE_NAME),
+            # DuskersTest(MODULE_NAME) # uncomment when adding stage4 specific tests
+        ]
+        current_suite = 0
+
+        while return_code == 0 and current_suite < len(suites):
+            return_code = suites[current_suite].run_tests()[0]
+            current_suite += 1
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/11304#comment
+status: Unchecked
+record: -1

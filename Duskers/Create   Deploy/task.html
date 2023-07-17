@@ -1,0 +1,152 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>We promised robots: it's time for robots! In this stage, you should create your own robots handmade or using websites such as <a href="https://fsymbols.com/draw/" rel="noopener noreferrer nofollow" target="_blank">fsymbols.com</a> to help with the design. After finishing your design, hit the "COPY" button and it's ready to be pasted into your code! If you'd like to, you can use an ASCII-image from the example:</p>
+<pre><code class="language-no-highlight">  $   $$$$$$$   $
+  $$$$$     $$$$$
+      $$$$$$$
+     $$$   $$$
+     $       $
+</code></pre>
+<p>You will also add a menu to the game screen.</p>
+<h5 id="objectives">Objectives</h5>
+<ol>
+<li>Your robots are represented by their ASCII/Unicode images, which should be placed between first two lines, started with "+" symbol in hub and be divided by '|' character. In this stage, you should have three robots. Make sure, each line of your robot image contains a non-whitespace character</li>
+<li>Place the robots into the Hub you made earlier. Make sure each robot's string representation is rectangular.</li>
+<li>Underneath the robots, insert 4 options just like in the examples below:
+	<ul>
+<li>[Ex]plore</li>
+<li>[Save]</li>
+<li>[Up]grade</li>
+<li>[M]enu</li>
+</ul>
+	where the text in brackets represents what the player needs to type in to execute that command. We will be implementing these options in later stages.</li>
+<li>For now, just add the <code class="java">[M]enu</code> to our game screen. The menu should have the following options:
+	<ul>
+<li>[Back] to game</li>
+<li>Return to [Main] Menu</li>
+<li>[Save] and exit</li>
+<li>[Exit] game</li>
+</ul>
+	Remember, for not-yet implemented options display a placeholder message (for example, <code class="java">Coming SOON!</code>) and terminate the program.</li>
+<li>The menu options should do what they say, except for <code class="java">[Save]</code> and <code class="java">[Exit]</code>: just insert a placeholder message there and end the program. We will deal with saving later.</li>
+</ol>
+<h5 id="examples">Examples</h5>
+<p>The greater-than symbol followed by a space (<code class="java">&gt; </code>) represents the user input. Note that it's not part of the input.</p>
+<p>Example:</p>
+<pre><code class="language-no-highlight">+=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; PLAY
+
+Enter your name:
+&gt; Hyper
+
+Greetings, commander Hyper!
+Are you ready to begin?
+[Yes] [No] Return to Main[Menu]
+
+Your command:
+&gt; yes
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command:
+&gt; m
+                          |==========================|
+                          |            MENU          |
+                          |                          |
+                          | [Back] to game           |
+                          | Return to [Main] Menu    |
+                          | [Save] and exit          |
+                          | [Exit] game              |
+                          |==========================|
+
+Your command:
+&gt; back
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command:
+&gt; m
+                          |==========================|
+                          |            MENU          |
+                          |                          |
+                          | [Back] to game           |
+                          | Return to [Main] Menu    |
+                          | [Save] and exit          |
+                          | [Exit] game              |
+                          |==========================|
+
+Your command:
+&gt; main
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; play
+
+Enter your name:
+&gt; AGAIN??
+
+Greetings, commander AGAIN??!
+Are you ready to begin?
+[Yes] [No] Return to Main[Menu]
+
+Your command:
+&gt; yes
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command:
+&gt; save
+
+Coming SOON! Thanks for playing!</code></pre>
+</div>

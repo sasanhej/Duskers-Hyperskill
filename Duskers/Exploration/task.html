@@ -1,0 +1,403 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>Our game's core idea is exploration and adventure, so let's add a gameplay feature of location exploring. Places should have random names, as well as an amount of titanium that the player receives after exploration. The player will be able to look for places which should show up one by one. You should also take command-line arguments for us to test your game, including an argument for the seed, which is simply a starting point for the pseudo-random number generator that you should implement. You can read more about it in the <a href="https://pynative.com/python-random-seed/" rel="noopener noreferrer nofollow" target="_blank">Python Random Seed</a> article or in the official <a href="https://docs.python.org/3/library/random.html#random.seed" rel="noopener noreferrer nofollow" target="_blank">docs</a>.</p>
+<h5 id="objectives">Objectives</h5>
+<ol>
+<li>Your program should take 4 command-line arguments (following the file name of course) with the seed being the first so that we can test the program. Do not convert the seed to any other data type, use it directly as a string in your program. Next is the minimum duration of animations, then the maximum duration of animations; in both of these, "0" means disabled. The 4th argument contains the names of possible locations separated by a comma <code class="java">,</code>. Note that each word in a location should be separated by an underscore character <code class="java">_</code>. If there are no arguments, the seed should be default, as well as the animation duration and location names (ones that you hardcoded).<br/>
+<strong>Note:</strong> for the tests to work, the place names should <strong>NOT</strong> contain any numbers.<br/>
+<strong>Note: Implementing animations is not mandatory. The tests will not check for them.</strong> However, if you chose to not implement any animations for now, still make sure that the arguments regarding animation get parsed in your program (they can be discarded shortly afterwards).</li>
+<li>When the player chooses "Explore", the program should first choose (generate using <code class="java">random.randint()</code>) between 1-9 locations to explore and then display them one by one after the user continues searching using manual input. The data for each location should <strong>ONLY</strong> be generated if and when the player continue searching, (first search should always happen automatically after initalising exploration). This data includes, in the following order:
+	<ol>
+<li>Place name (generated using <code class="java">random.choice()</code>)</li>
+<li>Place titanium yield if explored by player. A value between 10 and 100 (generated using <code class="java">random.randint()</code>)</li>
+</ol>
+	The location name should become visible to the player after generaton, while the titanium amount should be hidden. Once there are no more locations to explore, the player can still choose a location or go back to the HUB. The locations should be numbered. If all locations have been displayed, but the player is still trying to search, print a message that there are no locations left (for example, <code class="java">Nothing more in sight.</code>). Also, if the entered number is greater than the number of locations available, such an input is considered invalid.
+
+	<p><strong>Note:</strong> it is important that you implement the game's random generation mechanics in the exact order specified above, otherwise it won't pass the tests.</p>
+<p><strong>Note 2:</strong> set the random.seed() only once in the start of the program, so that each generated value will be similar to used in tests.</p>
+<p><strong>Note 3:</strong> to ensure that the random generation in your program is functioning correctly, try running the program in a similar manner to the examples provided below and compare the output.</p>
+</li>
+<li>To choose a location to explore, the player should enter the location number. After entering the location number a message report should be displayed to the player, including informing how much titanium was collected. Afterwards the player should be returned to their HUB. Example of such a log message:
+	<pre><code class="language-no-highlight">Deploying robots
+High street was explored successfully, with no damage taken.
+Acquired 87 lumps of titanium</code></pre>
+</li>
+<li>The <code class="java">back</code> command should be available at any time.</li>
+<li>Let the player see on their HUB how much titanium they've collected in total. Display that value under the robots.</li>
+</ol>
+<h5 id="if-you-chose-to-implement-animations">If you chose to implement animations:</h5>
+<p>Let's not make the game too predictable, we want to vary the time the player must wait for the following messages:</p>
+<ul>
+<li><code class="java">Searching...</code></li>
+<li><code class="java">Deploying ..</code></li>
+<li><em>Anywhere else you deem necessary</em></li>
+</ul>
+<p>For this reason, if the player chooses to input command line arguments, he/she must also specify the minimum and maximum animation/wait time. If he/she does not, make sure to hardcode some default values. In order not to interfere with the random module and the seed that will be used for the tests, implement <strong>your own</strong> pseudo-random number generator for this purpose. It should choose a number between the minimum wait time and maximum wait time, based on the current computer clock time. Each second waited by the placer should be represented by a dot appearing next to the last printed message, updated in real-time second by second. Read on the <a href="https://docs.python.org/3/library/time.html" rel="noopener noreferrer nofollow" target="_blank">Time module</a> to see how to pause program execution and get local machine time. This creates a small neat animation effect.<br/>
+<strong>Note:</strong> If the animation effect doesn't seem to be working in your teminal, add the <a href="https://docs.python.org/3/using/cmdline.html#cmdoption-u" rel="noopener noreferrer nofollow" target="_blank"><code class="java">-u</code></a> flag in the command line: <code class="language-no-highlight"> python3 -u duskers.py </code></p>
+<p>In this stage, the game should be endless.</p>
+<h5 id="examples">Examples</h5>
+<p>The greater-than symbol followed by a space (<code class="java">&gt; </code>) represents the user input. Note that it's not part of the input.</p>
+<p><strong>Example 1:</strong> <em>Explorations</em></p>
+<pre><code class="language-no-highlight">python3 -u duskers.py 10 0 0 High_street,Green_park,Destroyed_Arch
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command: &gt; play
+
+Enter your name: &gt; hyper
+
+Welcome, commander hyper!
+Are you ready to begin?
+[Yes] [No] Return to Main[Menu]
+
+Your command: &gt; yes
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 0                                                                  |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] Destroyed Arch
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch
+[2] High street
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch
+[2] High street
+[3] Green park
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch
+[2] High street
+[3] Green park
+[4] Destroyed Arch
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch
+[2] High street
+[3] Green park
+[4] Destroyed Arch
+[5] Green park
+
+[S] to continue searching
+
+Your command: &gt; s
+Nothing more in sight.
+       [Back]
+
+Your command: &gt; 3
+Deploying robots
+Green park explored successfully, with no damage taken.
+Acquired 28 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 28                                                                 |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] Destroyed Arch
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch
+[2] Destroyed Arch
+
+[S] to continue searching
+
+Your command: &gt; ex
+Invalid input
+
+Your command: &gt; s
+Searching
+[1] Destroyed Arch
+[2] Destroyed Arch
+[3] Destroyed Arch
+
+[S] to continue searching
+
+Your command: &gt; 2
+Deploying robots
+Destroyed Arch explored successfully, with no damage taken.
+Acquired 19 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 47                                                                 |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching
+[1] High street
+
+[S] to continue searching
+
+Your command: &gt; 1
+Deploying robots
+High street explored successfully, with no damage taken.
+Acquired 99 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 146                                                                |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; m
+                          |==========================|
+                          |            MENU          |
+                          |                          |
+                          | [Back] to game           |
+                          | Return to [Main] Menu    |
+                          | [Save] and exit          |
+                          | [Exit] game              |
+                          |==========================|
+
+Your command: &gt; exit
+Thanks for playing, bye!</code></pre>
+<p><strong>Example 2:</strong><em> Back is always available, animation with periods after "Searching"</em></p>
+<pre><code class="language-no-highlight">python3 -u duskers.py 10 2 5 High_street,Green_park,Destroyed_Arch
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command: &gt; play
+
+Enter your name: &gt; David
+
+Welcome, commander David!
+Are you ready to begin?
+[Yes] [No] Return to Main[Menu]
+
+Your command: &gt; yes
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 0                                                                  |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching...
+[1] Destroyed Arch
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching.....
+[1] Destroyed Arch
+[2] High street
+
+[S] to continue searching
+
+Your command: &gt; s
+Searching.....
+[1] Destroyed Arch
+[2] High street
+[3] Green park
+
+[S] to continue searching
+
+Your command: &gt; 3
+Deploying robots...
+Green park explored successfully, with no damage taken.
+Acquired 28 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 28                                                                 |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; ex
+Searching.....
+[1] High street
+
+[S] to continue searching
+
+Your command: &gt; back
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 28                                                                 |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command: &gt; up
+
+Coming SOON! Thanks for playing!
+</code></pre>
+<p><strong>Example 3:</strong> <em>No command-line arguments</em></p>
+<pre><code class="language-no-highlight">~/PycharmProjects/python-duskers$ python3 -u duskers.py
+
++=============================================================================+
+     ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+     ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+     ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+     ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+     ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                         (Survival ASCII Strategy Game)
++=============================================================================+
+
+[Play]
+[High] Scores
+[Help]
+[Exit]
+
+Your command:
+&gt; play
+
+Enter your name:
+&gt; david
+
+Greetings, commander david!
+Are you ready to begin?
+[Yes] [No] Return to Main[Menu]
+
+Your command:
+&gt; yes
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 0                                                                  |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command:
+&gt; ex
+Searching..
+[1] Nuclear power plant wreckage
+
+[S] to continue searching
+
+Your command:
+&gt; s
+Searching.
+[1] Nuclear power plant wreckage
+[2] Old beach bar
+
+[S] to continue searching
+
+Your command:
+&gt; s
+Searching...
+[1] Nuclear power plant wreckage
+[2] Old beach bar
+[3] Nuclear power plant wreckage
+
+[S] to continue searching
+
+Your command:
+&gt; 3
+Deploying robots.
+Nuklear power plant wreckage was explored successfully, with no damage taken.
+Acquired 30 lumps of titanium
++==============================================================================+
+  $   $$$$$$$   $  |  $   $$$$$$$   $  |  $   $$$$$$$   $
+  $$$$$     $$$$$  |  $$$$$     $$$$$  |  $$$$$     $$$$$
+      $$$$$$$      |      $$$$$$$      |      $$$$$$$
+     $$$   $$$     |     $$$   $$$     |     $$$   $$$
+     $       $     |     $       $     |     $       $
++==============================================================================+
+| Titanium: 30                                                                 |
++==============================================================================+
+|                  [Ex]plore                          [Up]grade                |
+|                  [Save]                             [M]enu                   |
++==============================================================================+
+
+Your command:
+</code></pre>
+</div>

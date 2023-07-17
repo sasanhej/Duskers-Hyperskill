@@ -1,0 +1,115 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>Every game begins somewhere: most often, it all starts with a welcome screen. In this stage, you will choose a name for your game and present it to the players in a multi-line string using ASCII or Unicode characters. If you'd like to, you can use an ASCII-title from the example:</p>
+<pre><code class="language-no-highlight">+=======================================================================+
+  ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+  ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+  ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+  ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+  ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                      (Survival ASCII Strategy Game)
++=======================================================================+
+</code></pre>
+<p>You will also create a simple menu with two options: "play" and "exit". The play option lets the user input their name, after which the game greets the user by that name and asks them if they are ready to begin the adventure.</p>
+<h5 id="objectives">Objectives</h5>
+<ol>
+<li>Choose a name for your game and display it using online generated ASCII art. Your title should take up exactly 8 non-empty lines. For this task, it will be useful to look at <a href="https://fsymbols.com/generators/carty/" rel="noopener noreferrer nofollow noopener" target="_blank">some examples of text art</a>.</li>
+<li>Display the player's options in the main menu. In this stage, these options are <code class="java">Play</code> and <code class="java">Exit</code> shown in this exact order on separate lines right below the title.</li>
+<li>The program should take commands from a user. The input should be case-insensitive, which means that <code class="java">PLAY</code>, <code class="java">pLAY</code>, and <code class="java">play</code> are all valid options.</li>
+<li>If the player chooses <code class="java">Play</code>, the program should prompt them to enter their name, after which they are personally greeted and asked if they are ready to start the game.</li>
+<li>If they respond <code class="java">yes</code>, the program should print a short message telling the user to get back to coding and end the program. If they choose <code class="java">no</code>, keep asking the same question until they choose <code class="java">yes</code>.</li>
+<li>If the player chooses <code class="java">exit</code> on the title screen, print a message and end the program.</li>
+</ol>
+<p>If the player enters an invalid command, make sure you point it out by printing "Invalid input" and ask for a valid input again.</p>
+<p>Note that command words should be in brackets so that the player knows what to type. Please use the same command words that we're using in the descriptions and examples. This applies to all stages of the project.</p>
+<h5 id="examples">Examples</h5>
+<p>The greater-than symbol followed by a space (<code class="java">&gt; </code>) represents the user input. Note that it's not part of the input.</p>
+<p><strong>Example 1:</strong></p>
+<pre><code class="language-no-highlight">+=======================================================================+
+  ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+  ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+  ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+  ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+  ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                      (Survival ASCII Strategy Game)
++=======================================================================+
+
+[Play]
+[Exit]
+
+Your command:
+&gt; play
+
+Enter your name:
+&gt; Hyper
+
+Greetings, commander Hyper!
+Are you ready to begin?
+    [Yes] [No]
+
+Your command:
+&gt; no
+
+How about now.
+Are you ready to begin?
+    [Yes] [No]
+
+Your command:
+&gt; yes
+
+Great, now let's go code some more ;)
+</code></pre>
+<p><strong>Example 2:</strong></p>
+<pre><code class="language-no-highlight">+=======================================================================+
+  ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+  ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+  ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+  ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+  ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                      (Survival ASCII Strategy Game)
++=======================================================================+
+
+[Play]
+[Exit]
+
+Your command:
+&gt; no command for ya, mate
+Invalid input
+
+Your command:
+&gt; exit
+
+Thanks for playing, bye!</code></pre>
+<p><strong>Example 3:</strong></p>
+<pre><code class="language-no-highlight">+=======================================================================+
+  ######*   ##*   ##*  #######*  ##*  ##*  #######*  ######*   #######*
+  ##*  ##*  ##*   ##*  ##*       ##* ##*   ##*       ##*  ##*  ##*
+  ##*  ##*  ##*   ##*  #######*  #####*    #####*    ######*   #######*
+  ##*  ##*  ##*   ##*       ##*  ##* ##*   ##*       ##*  ##*       ##*
+  ######*    ######*   #######*  ##*  ##*  #######*  ##*  ##*  #######*
+                      (Survival ASCII Strategy Game)
++=======================================================================+
+
+[Play]
+[Exit]
+
+Your command:
+&gt; play
+
+Enter your name:
+&gt; Hyper
+
+Greetings, commander Hyper!
+Are you ready to begin?
+    [Yes] [No]
+
+Your command:
+&gt; dunno
+Invalid input
+
+Your command:
+&gt; yes
+
+Great, now let's go code some more ;)
+</code></pre>
+</div>
